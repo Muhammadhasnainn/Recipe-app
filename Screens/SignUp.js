@@ -5,7 +5,7 @@ import {useAuthContext} from '../Contexts/useAuthContext';
 import firestore from '@react-native-firebase/firestore';
 
 const SignUp = () => {
-  const {Register} = useAuthContext();
+  const {Register, user} = useAuthContext();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +25,8 @@ const SignUp = () => {
       console.log(err);
     }
   };
+
+  if(user) return navigation.navigate("Home")
 
   return (
     <View style={styles.loginContainer}>
@@ -57,7 +59,7 @@ const SignUp = () => {
         <Text style={styles.btnText}>Sign up</Text>
       </Pressable>
       <View style={{flexDirection: 'row', marginTop: 10}}>
-        <Text style={styles.line}>New here?</Text>
+        <Text style={styles.line}>Already a member?</Text>
         <Link to={{screen: 'Login'}} style={styles.link}>
           Login now!
         </Link>

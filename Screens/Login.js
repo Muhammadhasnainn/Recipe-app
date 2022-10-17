@@ -4,7 +4,7 @@ import {StyleSheet, TextInput, View, Text, Pressable} from 'react-native';
 import {useAuthContext} from '../Contexts/useAuthContext';
 
 const Login = () => {
-  const {Login} = useAuthContext();
+  const {Login, user} = useAuthContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
@@ -17,6 +17,8 @@ const Login = () => {
       console.log(err);
     }
   };
+
+  if(user) return navigation.navigate("Home")
 
   return (
     <View style={styles.loginContainer}>

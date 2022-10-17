@@ -1,6 +1,6 @@
 import {Link} from '@react-navigation/native';
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -14,10 +14,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import { useAuthContext } from '../Contexts/useAuthContext';
 
 const Recipe = ({route, navigation}) => {
   const [recipe, setRecipe] = useState([]);
   const {itemId} = route.params;
+  const {user} = useAuthContext();
 
   useEffect(() => {
     const FetchData = async () => {
@@ -36,6 +38,8 @@ const Recipe = ({route, navigation}) => {
   const openYoutute = link => {
     Linking.openURL(link).catch(err => console.log(err));
   };
+
+  if(!user) return navigation.navigate("Login")
 
   return (
     <>

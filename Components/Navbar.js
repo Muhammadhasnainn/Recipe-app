@@ -15,7 +15,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {useGlobalContext} from '../Contexts/GlobalContext';
 import {useAuthContext} from '../Contexts/useAuthContext';
 
-const Navbar = (props) => {
+const Navbar = props => {
   const {query, setQuery, setFoods} = useGlobalContext();
   const {user, Logout} = useAuthContext();
   const navigation = useNavigation();
@@ -25,6 +25,7 @@ const Navbar = (props) => {
       `https://themealdb.com/api/json/v1/1/search.php?s=${query}`,
     );
     setFoods(data.meals);
+    setQuery("")
     navigation.navigate('Results');
   };
 
@@ -59,14 +60,6 @@ const Navbar = (props) => {
         )}
         <Text style={styles.Logo}>Recipe App</Text>
         <View style={styles.searchBar}>
-          <Pressable onPress={FetchFoods}>
-            <FontAwesome
-              name="search"
-              size={18}
-              color="gainsboro"
-              style={{paddingHorizontal: 10}}
-            />
-          </Pressable>
           <TextInput
             placeholder="Search Recipes Here!"
             placeholderTextColor={'gainsboro'}
@@ -74,6 +67,23 @@ const Navbar = (props) => {
             defaultValue={query}
             style={styles.searchInput}
           />
+          <Pressable
+            onPress={FetchFoods}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#4735fd',
+              borderRadius: 50,
+              height: 40,
+              width: 40,
+            }}>
+            <FontAwesome
+              name="search"
+              size={18}
+              color="gainsboro"
+              style={{paddingHorizontal: 10}}
+            />
+          </Pressable>
         </View>
       </View>
     </View>
@@ -86,7 +96,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
-    height: 150
+    height: 150,
   },
   utilityWidth: {
     width: '90%',
@@ -130,6 +140,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 10,
     backgroundColor: '#2f2f2f',
     borderRadius: 12,

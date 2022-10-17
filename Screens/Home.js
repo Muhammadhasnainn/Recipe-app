@@ -22,6 +22,8 @@ const Home = ({navigation}) => {
   }, [user]);
 
 
+  if(!user) return navigation.navigate("Login")
+  
   return (
     <>
       <Navbar navigation={navigation} />

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {useGlobalContext} from '../Contexts/GlobalContext';
 
 const Categories = ({navigation}) => {
@@ -41,20 +41,23 @@ const Categories = ({navigation}) => {
     <View style={styles.utilityWidth}>
       <Text style={styles.categoryHeading}>Categories</Text>
       <View style={styles.categoryContainer}>
-        {categories?.map(elem => {
-          return (
+        <FlatList
+          showsHorizontalScrollIndicator={true}
+          horizontal={true}
+          data={categories}
+          keyExtractor={item => item.idCategory}
+          renderItem={elem => (
             <Pressable
               style={styles.category}
-              key={elem.idCategory}
-              onPress={() => FetchCategory(elem.strCategory)}>
+              onPress={() => FetchCategory(elem.item.strCategory)}>
               <Image
-                source={{uri: elem.strCategoryThumb}}
+                source={{uri: elem.item.strCategoryThumb}}
                 style={styles.categoryImg}
               />
-              <Text style={styles.categoryText}>{elem.strCategory}</Text>
+              <Text style={styles.categoryText}>{elem.item.strCategory}</Text>
             </Pressable>
-          );
-        })}
+          )}
+        />
       </View>
     </View>
   );
@@ -84,6 +87,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 15,
     borderRadius: 20,
+    marginRight: 5
   },
   categoryImg: {
     height: 25,

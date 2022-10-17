@@ -30,6 +30,8 @@ const Results = ({navigation}) => {
       });
   };
 
+  if(!user) return navigation.navigate("Login")
+
   return (
     <>
       <Navbar />

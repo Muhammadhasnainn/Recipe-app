@@ -44,6 +44,9 @@ const WatchLater = ({navigation}) => {
     );
   };
 
+
+  if(!user) return navigation.navigate("Login")
+
   return (
     <>
       <View style={styles.Container}>
